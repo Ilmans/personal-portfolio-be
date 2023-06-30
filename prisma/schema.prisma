@@ -1,0 +1,73 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  username String @unique
+  password String
+  full_name String 
+  email String @unique  
+
+  @@map("users")
+
+}
+
+model Article {
+  id Int @id @default(autoincrement())
+  title String
+  slug String
+  body String @db.LongText()
+  published Boolean @default(false)
+  createdAt DateTime @db.DateTime()
+  updatedAt DateTime @updatedAt
+  authorId  Int
+  categories ArticleCategory[]
+
+  @@map("articles")
+
+}
+
+model Project {
+  id Int @id @default(autoincrement())
+  stacks Json @db.Json()
+  name String
+  slug String
+  description String?
+  image String
+  url Json
+
+  @@map("projects")
+
+}
+
+
+
+model ArticleCategory {
+  article Article @relation(fields: [articleId] ,references: [id])
+  articleId Int
+  category Category @relation(fields: [categoryId],references: [id])
+  categoryId Int
+
+  @@id([articleId,categoryId])
+
+  @@map("article_categories")
+
+
+}
+
+model Category {
+  id Int @id @default(autoincrement())
+  name String
+  articles ArticleCategory[]
+
+  @@map("categories")
+
+ 
+}
