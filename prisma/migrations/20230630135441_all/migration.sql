@@ -14,13 +14,14 @@ CREATE TABLE `users` (
 -- CreateTable
 CREATE TABLE `articles` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `authorId` INTEGER NOT NULL,
+    `categoryId` INTEGER NOT NULL,
     `title` VARCHAR(191) NOT NULL,
     `slug` VARCHAR(191) NOT NULL,
     `body` LONGTEXT NOT NULL,
     `published` BOOLEAN NOT NULL DEFAULT false,
     `createdAt` DATETIME NOT NULL,
     `updatedAt` DATETIME(3) NOT NULL,
-    `authorId` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -39,14 +40,6 @@ CREATE TABLE `projects` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `article_categories` (
-    `articleId` INTEGER NOT NULL,
-    `categoryId` INTEGER NOT NULL,
-
-    PRIMARY KEY (`articleId`, `categoryId`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
 CREATE TABLE `categories` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
@@ -55,7 +48,7 @@ CREATE TABLE `categories` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
-ALTER TABLE `article_categories` ADD CONSTRAINT `article_categories_articleId_fkey` FOREIGN KEY (`articleId`) REFERENCES `articles`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `articles` ADD CONSTRAINT `articles_authorId_fkey` FOREIGN KEY (`authorId`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `article_categories` ADD CONSTRAINT `article_categories_categoryId_fkey` FOREIGN KEY (`categoryId`) REFERENCES `categories`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `articles` ADD CONSTRAINT `articles_categoryId_fkey` FOREIGN KEY (`categoryId`) REFERENCES `categories`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

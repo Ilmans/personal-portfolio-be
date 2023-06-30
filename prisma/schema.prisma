@@ -14,6 +14,7 @@ model User {
   password String
   full_name String 
   email String @unique  
+  articles Article[]
 
   @@map("users")
 
@@ -21,14 +22,18 @@ model User {
 
 model Article {
   id Int @id @default(autoincrement())
+  author User @relation(fields: [authorId],references: [id])
+  authorId  Int
+  category Category @relation(fields: [categoryId],references: [id])
+  categoryId Int
   title String
   slug String
   body String @db.LongText()
   published Boolean @default(false)
   createdAt DateTime @db.DateTime()
   updatedAt DateTime @updatedAt
-  authorId  Int
-  categories ArticleCategory[]
+
+ 
 
   @@map("articles")
 
@@ -49,24 +54,12 @@ model Project {
 
 
 
-model ArticleCategory {
-  article Article @relation(fields: [articleId] ,references: [id])
-  articleId Int
-  category Category @relation(fields: [categoryId],references: [id])
-  categoryId Int
 
-  @@id([articleId,categoryId])
-
-  @@map("article_categories")
-
-
-}
 
 model Category {
   id Int @id @default(autoincrement())
   name String
-  articles ArticleCategory[]
-
+  articles Article[]
   @@map("categories")
 
  

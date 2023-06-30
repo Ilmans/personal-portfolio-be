@@ -1,0 +1,3 @@
+## GET ARTICLES
+
+GET http://localhost:3120/articles
