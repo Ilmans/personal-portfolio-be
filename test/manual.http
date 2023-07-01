@@ -1,5 +1,6 @@
 ### GET ARTICLES
-GET http://localhost:3120/articles
+GET http://localhost:3120/articles?search=%23tutorial
+
 
 ### popular articles
 GET http://localhost:3120/articles/popular

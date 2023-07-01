@@ -3,7 +3,18 @@ import { db } from "../app/database";
 
 const getArticles = async (request: any) => {
   const skip: number = (request.page - 1) * request.size;
+  let filters: any = [];
+
+  if (request.search) {
+    const keyword: string = request.search;
+    if (keyword.includes("#")) {
+      filters = { category: { name: { equals: keyword.replace("#", "") } } };
+    } else {
+      filters.push({ title: { contains: request.search } });
+    }
+  }
   const articles = await db.article.findMany({
+    where: { AND: filters },
     skip: skip,
     take: request.size,
 
@@ -20,7 +31,11 @@ const getArticles = async (request: any) => {
       },
     },
   });
-  const articlesCount = await db.article.count();
+  const articlesCount = await db.article.count({
+    where: {
+      AND: filters,
+    },
+  });
 
   return {
     data: articles,

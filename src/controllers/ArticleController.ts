@@ -3,10 +3,12 @@ import ArticleService from "../services/ArticleService";
 
 const getArticles = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const result = await ArticleService.getArticles({
-      page: req.params.page ?? 1,
-      size: req.params.size ?? 10,
-    });
+
+ const result = await ArticleService.getArticles({
+   page: req.query.page ?? 1,
+   size: req.query.size ?? 10,
+   search: req.query.search ?? "",
+ });
     res.status(200).send(result);
   } catch (error) {
     next(error);
