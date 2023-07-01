@@ -1,3 +1,17 @@
-## GET ARTICLES
-
+### GET ARTICLES
 GET http://localhost:3120/articles
+
+### popular articles
+GET http://localhost:3120/articles/popular
+
+
+### SHOW ARTICLES
+
+GET http://localhost:3120/article/how-to-install-node-js-simply
+
+
+
+
+
+
+

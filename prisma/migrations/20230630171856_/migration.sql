@@ -20,6 +20,7 @@ CREATE TABLE `articles` (
     `slug` VARCHAR(191) NOT NULL,
     `body` LONGTEXT NOT NULL,
     `published` BOOLEAN NOT NULL DEFAULT false,
+    `views` INTEGER NOT NULL DEFAULT 0,
     `createdAt` DATETIME NOT NULL,
     `updatedAt` DATETIME(3) NOT NULL,
 

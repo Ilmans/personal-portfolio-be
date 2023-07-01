@@ -27,9 +27,10 @@ model Article {
   category Category @relation(fields: [categoryId],references: [id])
   categoryId Int
   title String
-  slug String
+  slug String @unique
   body String @db.LongText()
   published Boolean @default(false)
+  views Int @default(0)
   createdAt DateTime @db.DateTime()
   updatedAt DateTime @updatedAt
 

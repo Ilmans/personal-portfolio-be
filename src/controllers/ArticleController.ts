@@ -13,4 +13,25 @@ const getArticles = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default { getArticles };
+const showArticle = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const result = await ArticleService.showArticle(req.params.slug);
+    res.status(200).send({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+const getPopularArticles = async (
+  rea: any,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const result = await ArticleService.getPopularArticles();
+    res.status(200).send({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export default { getArticles, showArticle, getPopularArticles };

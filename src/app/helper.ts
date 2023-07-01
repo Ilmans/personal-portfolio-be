@@ -1,7 +1,7 @@
 import { Article } from "@prisma/client";
 import { db } from "./database";
 import bcrypt from "bcrypt"
-import { randomInt } from "crypto";
+
 const article = `
 Basically, using laravel pipelines you can pass an object between several classes in a fluid way to perform any type of task and finally return the resulting value once all the “tasks” have been executed.
 
@@ -121,31 +121,31 @@ That's it. I hope this article can help you. Thank you for reading.
 `;
 
 const createDummyArticles: () => void = async () => {
-  // await db.category.createMany({
-  //   data: [
-  //     {
-  //       name: "Tutorial",
-  //     },
-  //     {
-  //       name: "Programming",
-  //     },
-  //     {
-  //       name: "Technology",
-  //     },
-  //   ],
-  // });
+//   await db.category.createMany({
+//     data: [
+//       {
+//         name: "Tutorial",
+//       },
+//       {
+//         name: "Programming",
+//       },
+//       {
+//         name: "Technology",
+//       },
+//     ],
+//   });
 
-  // const user = await db.user.create({
-  //   data: {
-  //     full_name: "Ilman S",
-  //     username: "menzcreate",
-  //     email: "Ilmansunannudin2@gmail.com",
-  //     password: bcrypt.hashSync("tes123", 10),
-  //   },
-  //   select: {
-  //     id: true,
-  //   },
-  // });
+  const user = await db.user.create({
+    data: {
+      full_name: "Ilman S",
+      username: "menzcreate",
+      email: "Ilmansunannudin2@gmail.com",
+      password: bcrypt.hashSync("tes123", 10),
+    },
+    select: {
+      id: true,
+    },
+  });
 
   await db.article.createMany({
     data: [
@@ -199,6 +199,4 @@ const createDummyArticles: () => void = async () => {
   });
 };
 
-export  {
-  createDummyArticles
-}
+export { createDummyArticles };
