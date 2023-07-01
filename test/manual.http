@@ -10,6 +10,10 @@ GET http://localhost:3120/articles/popular
 
 GET http://localhost:3120/article/how-to-install-node-js-simply
 
+### GET ALL CATEGORIES
+
+GET http://localhost:3120/categories
+
 
 
 
