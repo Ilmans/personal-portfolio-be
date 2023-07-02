@@ -1,5 +1,5 @@
 ### GET ARTICLES
-GET http://localhost:3120/articles?search=%23tutorial
+GET http://localhost:3120/articles?page=3
 
 
 ### popular articles
@@ -13,6 +13,18 @@ GET http://localhost:3120/article/how-to-install-node-js-simply
 ### GET ALL CATEGORIES
 
 GET http://localhost:3120/categories
+
+### LOGIN
+post http://localhost:3120/login
+Content-Type: application/json
+Accept: application/json
+
+{
+  "username" : "menzcreate",
+  "password" : "tes123"
+}
+
+
 
 
 

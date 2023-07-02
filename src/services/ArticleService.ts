@@ -35,6 +35,8 @@ const getArticles = async (request: any) => {
     where: {
       AND: filters,
     },
+    skip: skip,
+    take: request.size,
   });
 
   return {
