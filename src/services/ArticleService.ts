@@ -113,6 +113,7 @@ const createArticle = async (user: User, request: any) => {
 };
 const updateArticle = async (user: User, request: any) => {
   const data = validate(updateArticleValidation, request);
+  let slug;
   if (data.title) {
     const slug = string_to_slug(data.title);
     const isExistsSameSlugExceptCurrent = await db.article.findFirst({
@@ -120,9 +121,12 @@ const updateArticle = async (user: User, request: any) => {
     });
     if (isExistsSameSlugExceptCurrent)
       throw new ResponseError(401, "Article title already exists in database");
+
+    data.slug = slug;
   }
   data.published = data.published !== 1 ? false : true;
-  return db.article.update({
+ 
+  return await db.article.update({
     where: { id: data.id },
     data: data,
     select: {
