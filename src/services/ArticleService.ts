@@ -5,6 +5,7 @@ import { validate } from "../validate";
 import {
   createArticleValidation,
   deleteArticleValidation,
+  updateArticleValidation,
 } from "../validations/ArticleValidation";
 import { string_to_slug } from "../app/helper";
 
@@ -110,10 +111,29 @@ const createArticle = async (user: User, request: any) => {
     },
   });
 };
+const updateArticle = async (user: User, request: any) => {
+  const data = validate(updateArticleValidation, request);
+  if (data.title) {
+    const slug = string_to_slug(data.title);
+    const isExistsSameSlugExceptCurrent = await db.article.findFirst({
+      where: { AND: { slug: slug, NOT: { id: data.id } } },
+    });
+    if (isExistsSameSlugExceptCurrent)
+      throw new ResponseError(401, "Article title already exists in database");
+  }
+  data.published = data.published !== 1 ? false : true;
+  return db.article.update({
+    where: { id: data.id },
+    data: data,
+    select: {
+      id: true,
+      title: true,
+    },
+  });
+};
 
 const deleteArticle = async (user: User, request: any) => {
   const { articleId } = validate(deleteArticleValidation, request);
-  
 
   const check = await db.article.findFirst({
     where: { AND: { authorId: user.id, id: articleId } },
@@ -130,4 +150,5 @@ export default {
   getPopularArticles,
   createArticle,
   deleteArticle,
+  updateArticle,
 };

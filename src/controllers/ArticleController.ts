@@ -44,13 +44,22 @@ const createArticle = async (req: any, res: Response, next: NextFunction) => {
     next(error);
   }
 };
+const updateArticle = async (req: any, res: Response, next: NextFunction) => {
+  try {
+    const result = await ArticleService.updateArticle(req.user, req.body);
+    res.status(200).send({ data: result });
+  } catch (error) {
+    console.log(error);
+
+    next(error);
+  }
+};
 
 const deleteArticle = async (req: any, res: Response, next: NextFunction) => {
   try {
     await ArticleService.deleteArticle(req.user, req.body);
     res.status(200).send({ data: "OK" });
   } catch (error) {
-    console.log("a")
     next(error);
   }
 };
@@ -61,4 +70,5 @@ export default {
   getPopularArticles,
   createArticle,
   deleteArticle,
+  updateArticle,
 };

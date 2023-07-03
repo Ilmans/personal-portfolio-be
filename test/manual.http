@@ -46,6 +46,17 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJt
 {
   "articleId" : 34
 }
+### update article
+
+PATCH  http://localhost:3120/articles
+Content-Type: application/json
+Accept: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJtZW56Y3JlYXRlIiwiZW1haWwiOiJJbG1hbnN1bmFubnVkaW4yQGdtYWlsLmNvbSIsImZ1bGxfbmFtZSI6IklsbWFuIFMiLCJpYXQiOjE2ODgzMjEyNDQsImV4cCI6MTY4ODQwNzY0NH0.paB8cI7h5ttpBDtk1WdBmRxYRqGqhyRP4v3fj9nYMNI
+
+{
+  "id" : 6,
+  "title" : "i am crazy with you xixixiixx"
+}
 
 
 
