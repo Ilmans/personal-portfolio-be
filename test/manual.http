@@ -1,5 +1,5 @@
 ### GET ARTICLES
-GET http://localhost:3120/articles?page=3
+GET http://localhost:3120/articles
 
 
 ### popular articles
@@ -24,7 +24,28 @@ Accept: application/json
   "password" : "tes123"
 }
 
+### create article
+POST http://localhost:3120/articles/create
+Content-Type: application/json
+Accept: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJtZW56Y3JlYXRlIiwiZW1haWwiOiJJbG1hbnN1bmFubnVkaW4yQGdtYWlsLmNvbSIsImZ1bGxfbmFtZSI6IklsbWFuIFMiLCJpYXQiOjE2ODgzMjEyNDQsImV4cCI6MTY4ODQwNzY0NH0.paB8cI7h5ttpBDtk1WdBmRxYRqGqhyRP4v3fj9nYMNI
 
+{
+  "title" : "Testing api2",
+  "categoryId" : 1,
+  "body" : "okeokeokeokeosf"
+}
+
+### delete article
+
+DELETE http://localhost:3120/articles
+Content-Type: application/json
+Accept: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJtZW56Y3JlYXRlIiwiZW1haWwiOiJJbG1hbnN1bmFubnVkaW4yQGdtYWlsLmNvbSIsImZ1bGxfbmFtZSI6IklsbWFuIFMiLCJpYXQiOjE2ODgzMjEyNDQsImV4cCI6MTY4ODQwNzY0NH0.paB8cI7h5ttpBDtk1WdBmRxYRqGqhyRP4v3fj9nYMNI
+
+{
+  "articleId" : 34
+}
 
 
 

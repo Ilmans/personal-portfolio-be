@@ -18,6 +18,7 @@ export const authMiddleware = (
     verifyToken(token, "secret-key")
       .then((user) => {
         req.user = user;
+        next();
       })
       .catch(() => {
         res

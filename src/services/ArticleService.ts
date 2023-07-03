@@ -1,5 +1,12 @@
+import { Article, User } from "@prisma/client";
 import { ResponseError } from "../ResponseError";
 import { db } from "../app/database";
+import { validate } from "../validate";
+import {
+  createArticleValidation,
+  deleteArticleValidation,
+} from "../validations/ArticleValidation";
+import { string_to_slug } from "../app/helper";
 
 const getArticles = async (request: any) => {
   const skip: number = (request.page - 1) * request.size;
@@ -17,7 +24,9 @@ const getArticles = async (request: any) => {
     where: { AND: filters },
     skip: skip,
     take: request.size,
-
+    orderBy: {
+      id: "desc",
+    },
     include: {
       category: {
         select: {
@@ -35,8 +44,6 @@ const getArticles = async (request: any) => {
     where: {
       AND: filters,
     },
-    skip: skip,
-    take: request.size,
   });
 
   return {
@@ -78,4 +85,49 @@ const showArticle = async (slug: string) => {
   return article;
 };
 
-export default { getArticles, showArticle, getPopularArticles };
+const createArticle = async (user: User, request: any) => {
+  const data = validate(createArticleValidation, request);
+  const slug = string_to_slug(data.title);
+
+  let publish = true;
+  const isExists = await db.article.findFirst({ where: { slug: slug } });
+  if (isExists)
+    throw new ResponseError(401, "Article title already exists in database");
+  if (request.publish && request.publish != 1) publish = false;
+  return db.article.create({
+    data: {
+      title: data.title,
+      slug: slug,
+      categoryId: data.categoryId,
+      body: data.body,
+      published: publish,
+      createdAt: new Date(),
+      authorId: user.id,
+    },
+    select: {
+      id: true,
+      title: true,
+    },
+  });
+};
+
+const deleteArticle = async (user: User, request: any) => {
+  const { articleId } = validate(deleteArticleValidation, request);
+  
+
+  const check = await db.article.findFirst({
+    where: { AND: { authorId: user.id, id: articleId } },
+  });
+  if (!check) throw new ResponseError(404, "Article doesn't found");
+  return db.article.delete({
+    where: { id: articleId },
+  });
+};
+
+export default {
+  getArticles,
+  showArticle,
+  getPopularArticles,
+  createArticle,
+  deleteArticle,
+};

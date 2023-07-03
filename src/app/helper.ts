@@ -120,20 +120,21 @@ class UserController extends Controller
 That's it. I hope this article can help you. Thank you for reading.
 `;
 
+
 const createDummyArticles: () => void = async () => {
-//   await db.category.createMany({
-//     data: [
-//       {
-//         name: "Tutorial",
-//       },
-//       {
-//         name: "Programming",
-//       },
-//       {
-//         name: "Technology",
-//       },
-//     ],
-//   });
+  //   await db.category.createMany({
+  //     data: [
+  //       {
+  //         name: "Tutorial",
+  //       },
+  //       {
+  //         name: "Programming",
+  //       },
+  //       {
+  //         name: "Technology",
+  //       },
+  //     ],
+  //   });
 
   const user = await db.user.create({
     data: {
@@ -199,5 +200,23 @@ const createDummyArticles: () => void = async () => {
   });
 };
 
+function string_to_slug(str: string) {
+  str = str.replace(/^\s+|\s+$/g, ""); // trim
+  str = str.toLowerCase();
 
-export { createDummyArticles };
+  // remove accents, swap ñ for n, etc
+  var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
+  var to = "aaaaeeeeiiiioooouuuunc------";
+  for (var i = 0, l = from.length; i < l; i++) {
+    str = str.replace(new RegExp(from.charAt(i), "g"), to.charAt(i));
+  }
+
+  str = str
+    .replace(/[^a-z0-9 -]/g, "") // remove invalid chars
+    .replace(/\s+/g, "-") // collapse whitespace and replace by -
+    .replace(/-+/g, "-"); // collapse dashes
+
+  return str;
+}
+
+export { createDummyArticles, string_to_slug };

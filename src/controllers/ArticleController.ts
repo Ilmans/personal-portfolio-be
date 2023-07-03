@@ -25,7 +25,7 @@ const showArticle = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 const getPopularArticles = async (
-  rea: any,
+  req: any,
   res: Response,
   next: NextFunction
 ) => {
@@ -36,5 +36,29 @@ const getPopularArticles = async (
     next(error);
   }
 };
+const createArticle = async (req: any, res: Response, next: NextFunction) => {
+  try {
+    const result = await ArticleService.createArticle(req.user, req.body);
+    res.status(200).send({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
 
-export default { getArticles, showArticle, getPopularArticles };
+const deleteArticle = async (req: any, res: Response, next: NextFunction) => {
+  try {
+    await ArticleService.deleteArticle(req.user, req.body);
+    res.status(200).send({ data: "OK" });
+  } catch (error) {
+    console.log("a")
+    next(error);
+  }
+};
+
+export default {
+  getArticles,
+  showArticle,
+  getPopularArticles,
+  createArticle,
+  deleteArticle,
+};
