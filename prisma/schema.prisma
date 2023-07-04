@@ -45,7 +45,7 @@ model Project {
   stacks Json @db.Json()
   name String
   slug String
-  description String?
+  description String? @db.LongText
   image String
   url Json
 

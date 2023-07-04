@@ -59,6 +59,10 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJt
 }
 
 
+### GET PROJECTS
+GET http://localhost:3120/projects
+
+
 
 
 

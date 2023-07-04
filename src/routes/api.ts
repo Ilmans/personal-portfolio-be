@@ -10,5 +10,7 @@ apiRouter.patch("/articles", ArticleController.updateArticle);
 apiRouter.delete("/articles", ArticleController.deleteArticle);
 
 
+
 apiRouter.post("/projects", ProjectController.createProject);
+apiRouter.delete("/projects", ProjectController.deleteProject);
 

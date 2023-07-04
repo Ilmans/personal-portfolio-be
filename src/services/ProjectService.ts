@@ -21,14 +21,14 @@ const createProject = async (request: RequestData) => {
   const upload = saveImage(request.image, "projects");
 
   const stacksArray: String[] = request.stacks.split(",");
-  const image = "/projects" + upload;
+
   return db.project.create({
     data: {
       name: request.name,
       slug: slug,
       stacks: JSON.stringify(stacksArray),
       url: request.url,
-      image: image,
+      image: upload,
       description: request.description,
     },
     select: {
@@ -43,4 +43,28 @@ const createProject = async (request: RequestData) => {
   // upload image
 };
 
-export default { createProject };
+const getProjects = async (request: any) => {
+  const skip: number = (request.page - 1) * request.size;
+  const projects = await db.project.findMany({
+    skip: skip,
+    take: request.size,
+    orderBy: { id: "desc" },
+  });
+  const projectsCount = await db.project.count();
+  return {
+    data: projects,
+    paging: {
+      page: request.page,
+      total_item: projectsCount,
+      total_page: Math.ceil(projectsCount / request.size),
+    },
+  };
+};
+
+const deleteProject = async (id: any) => {
+  return db.project.delete({
+    where: { id: id },
+  });
+};
+
+export default { createProject, getProjects, deleteProject };
