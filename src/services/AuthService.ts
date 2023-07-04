@@ -28,9 +28,10 @@ const login = async (request: {
   );
   if (!validatePassword) throw new ResponseError(404, "Invalid credentials");
   delete checkUser.password;
-  const token = jwt.sign(checkUser, "secret-key", {
-    expiresIn: "24h",
-  });
+  const token = jwt.sign(
+    { ...checkUser, exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 },
+    "secret-key"
+  );
 
   return {
     ...checkUser,

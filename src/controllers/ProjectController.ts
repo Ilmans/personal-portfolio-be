@@ -1,18 +1,17 @@
 import { Request, Response, NextFunction } from "express";
-import AuthService from "../services/AuthService";
+import ProjectService from "../services/ProjectService";
 
-const login = async (
+const createProject = async (
   req: Request,
   res: Response,
   next: NextFunction
-): Promise<void> => {
+) => {
   try {
-    const result = await AuthService.login(req.body);
-
+    const result = await ProjectService.createProject(req.body);
     res.status(200).send({ data: result });
   } catch (error) {
     next(error);
   }
 };
 
-export default { login };
+export default { createProject };
