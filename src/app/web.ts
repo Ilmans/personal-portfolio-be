@@ -13,7 +13,7 @@ const corsOptions = {
 web.use(cors(corsOptions));
 
 web.use(express.static("public/"));
-web.get("/projects/:imageName", (req, res) => {
+web.get("/uploads/projects/:imageName", (req, res) => {
   const imageName = req.params.imageName;
   res.sendFile(`${__dirname}/public/projects/${imageName}`);
 });
