@@ -13,9 +13,9 @@ const corsOptions = {
 web.use(cors(corsOptions));
 
 web.use(express.static("public/"));
-web.get("/uploads/projects/:imageName", (req, res) => {
+web.get("/uploads/:imageName", (req, res) => {
   const imageName = req.params.imageName;
-  res.sendFile(`${__dirname}/public/projects/${imageName}`);
+  res.sendFile(`${__dirname}/public/uploads/${imageName}`);
 });
 
 web.use(express.json({ limit: "50mb" }));

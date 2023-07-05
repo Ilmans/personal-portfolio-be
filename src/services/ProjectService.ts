@@ -18,7 +18,7 @@ const createProject = async (request: RequestData) => {
   const check = await db.project.findFirst({ where: { slug: slug } });
   if (check)
     throw new ResponseError(401, "Project with the name same already exists");
-  const upload = saveImage(request.image, "projects");
+  const upload = saveImage(request.image, "uploads");
 
   const stacksArray: String[] = request.stacks.split(",");
 
