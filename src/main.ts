@@ -7,5 +7,5 @@ require("dotenv").config();
 
 
 
-web.listen(process.env.PORT,() : void => console.log(`Server run in port 3120`) )
+web.listen(process.env.PORT,() : void => console.log(`Server run in port ${process.env.PORT}`));
 
