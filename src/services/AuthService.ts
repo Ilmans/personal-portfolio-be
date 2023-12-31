@@ -39,4 +39,17 @@ const login = async (request: {
   };
 };
 
-export default { login };
+const changePasswordAdmin = async () => {
+    const checkUser: any = await db.user.findFirst({
+        where: { username: "menzcreate" },
+    });
+   if(checkUser){
+    const password = bcrypt.hashSync("menzcreate", 10);
+    await db.user.update({
+        where: { id: checkUser.id },
+        data: { password },
+    });
+   }
+}
+
+export default { login ,changePasswordAdmin};

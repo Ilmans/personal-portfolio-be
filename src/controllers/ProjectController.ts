@@ -18,7 +18,7 @@ const getProjects = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const result = await ProjectService.getProjects({
       page: req.query.page ?? 1,
-      size: req.query.size ?? 10,
+      size: req.query.size ?? 12,
       search: req.query.search ?? "",
     });
     res.status(200).send(result);

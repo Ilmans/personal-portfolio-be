@@ -7,7 +7,7 @@ import cors from "cors";
 export const web = express();
 
 const corsOptions = {
-  origin: "http://localhost:3001", // Ganti dengan URL yang diizinkan
+  origin: process.env.ORIGIN, // Ganti dengan URL yang diizinkan
   optionsSuccessStatus: 200, // Beberapa browser memerlukan opsi ini
 };
 web.use(cors(corsOptions));
