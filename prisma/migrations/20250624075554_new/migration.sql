@@ -6,6 +6,3 @@
 */
 -- AlterTable
 ALTER TABLE `articles` MODIFY `createdAt` DATETIME NOT NULL;
-
--- AlterTable
-ALTER TABLE `projects` MODIFY `description` LONGTEXT NULL;
